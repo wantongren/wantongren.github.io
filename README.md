@@ -1,33 +1,21 @@
 ---
 layout: page
-title: About
+title: 关于 
 permalink: /about/
 ---
 
-## Theme Monos
-> Simple and lightweight theme for Jekyll
 
-### Features
-- Responsive.
-- Syntax Highlight
-- Most optimized theme for tech blog.
-- Lightweight with minimum stylesheet.
-- Easy to customize.
-- Offers category menu.
+## 项目说明 
+日常工作学习记录，主要分两部分：工作  生活 
 
-### _config.yml
-> Code block will look like this.
-```yml
-highlighter-theme: monokai //you can change your syntax color scheme.
-date_format: "%Y-%M-%D" //and date format.
-```
+### 工作
+工作中遇到的各种问题、分析历程、解决方案、思考
 
-### Screenshots
-#### Page
-![alt text](/public/img/screenshot-1.png)
-#### Articles
-![alt text](/public/img/screenshot-2.png)
-#### Page - Mobile
-![alt text](/public/img/screenshot-m1.png)
-#### Page - Articles
-![alt text](/public/img/screenshot-m2.png)
+### 生活
+生活中有趣的点滴，其实主要是想记录一下女儿的点滴
+
+
+
+## 声明
+**本博客所有文章均属原创，保留一切版权。**
+
