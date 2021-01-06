@@ -15,7 +15,7 @@
 	<ul class="nav">
       <li class="nav-title">学习工作</li>
 	  <li>
-	  	<a class="nav-item" href="/">Articles</a>
+	  	<a class="nav-item" href="/">2021</a>
 	  </li>
 	  {% assign pages_list = site.pages %}
 	  {% for node in pages_list %}
@@ -36,12 +36,14 @@
   	<ul class="nav">
 	  <li class="nav-title">生活日常</li>
 	    {% for category in site.categories %}
-	    <li>
-	    	<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}">
-				<span class="name">{{ category | first }}</span>
-				<span class="badge">{{ category | last | size }}</span>
-	    	</a>
+	      {% if node.layout == "tongjie" %}
+	        <li>
+	            <a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}">
+			<span class="name">{{ category | first }}</span>
+			<span class="badge">{{ category | last | size }}</span>
+	    	    </a>
  		</li>
+	      {% endif %}
 	    {% endfor %}
 	  </nav>
 	</ul>
