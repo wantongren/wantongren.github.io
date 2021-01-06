@@ -36,13 +36,15 @@
 <div class="sidebar-item sidebar-nav">
   	<ul class="nav">
 	  <li class="nav-title">生活日常</li>
-	    {% for category in site.categories.tongjie %}
+	    {% for category in site.categories %}
+	      {% for post in category %}
 	        <li>
 	            <a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}">
 			<span class="name">{{ category | first }}</span>
 			<span class="badge">{{ category | last | size }}</span>
 	    	    </a>
  		</li>
+	      {% endfor %}
 	    {% endfor %}
 	  </nav>
 	</ul>
