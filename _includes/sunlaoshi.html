@@ -1,13 +1,13 @@
 <article class="post">
   <header class="post-header home">
-    <div class="post-title">桐姐小屋</div>
+    <div class="post-title">悟空讲堂</div>
   </header>
 
   <div class="post-content">
     {%- if site.posts.size > 0 -%}
     <ul class="post-list">
       {%- for category in site.categories -%}
-      {% if category.first == "tongjie" %}
+      {% if category.first == "sunlaoshi" %}
       {% for post in category[1] %}
       <li class="post-list-item">
         <!-- {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%} -->
