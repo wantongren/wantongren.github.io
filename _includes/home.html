@@ -1,21 +1,25 @@
 <article class="post">
   <header class="post-header home">
-    <div class="post-title">2020</div>
+    <div class="post-title">2021</div>
   </header>
 
   <div class="post-content">
       {%- if site.posts.size > 0 -%}
     <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li class="post-list-item">
-        <!-- {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%} -->
-        {%- assign date_format = "%Y/%m/%d" -%}
-        <span class="post-date">{{ post.date | date: date_format }}</span>
-      	<a class="post-link" href="{{ post.url | relative_url }}">
-    	    {{ post.title | escape }}
-		</a>
-        {%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
-      </li>
+      {%- for category in site.categories -%}
+        {% if category.first == "tongjie" %}
+          {% for post in category %}
+            <li class="post-list-item">
+              <!-- {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%} -->
+              {%- assign date_format = "%Y/%m/%d" -%}
+              <span class="post-date">{{ post.date | date: date_format }}</span>
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                  {{ post.title | escape }}
+              </a>
+              {%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
+            </li>
+           {% endfor %}
+        {% endif %}
       {%- endfor -%}
     </ul>
   {%- endif -%}
