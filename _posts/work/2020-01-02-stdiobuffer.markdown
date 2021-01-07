@@ -8,7 +8,7 @@ categories: [work2021, stdio, k8s]
 ---
 pipeline输入日志中错误日志显示的位置异常，早于产生错误的命令调用，如下图：
 
-![Alt text](./resource/日志乱序.png)
+![Alt text](/_posts/work/resource/日志乱序.png)
 
 我们发现2处的命令错误输出在1处显示，这个顺序是错乱的。
 
@@ -31,6 +31,7 @@ pipeline输入日志中错误日志显示的位置异常，早于产生错误的
      该方法经测试无效。
      
 ## 资料总结
+---
 缓冲类型分为三种：
 * 无缓冲
 * 行缓冲
@@ -48,7 +49,7 @@ stderr默认缓冲就是无缓冲。而stdout的缓冲类型与输出介质有�
 
 发现没有任何输出。
 
-![Alt text](./resource/stdio.png)
+![Alt text](/_posts/work/resource/stdio.png)
 
 分析:
 首先tail程序通过read调用读取文件中的内容,然后将读取的数据写入stdout,由于tail的输出是管道，需要拷贝到内核。（tail程序比较特殊,在有新数据产生时，会主动调用fflush，刷新缓冲区。），内核中第一个缓冲区如果不写满，cut程序便读取不到tail写入的数据（原因1）。由于cut程序本身也是缓冲的（原因2），输出是管道，这里也会等待缓冲区满（原因3），uniq程序才能读取到数据。最终导致了没有任何输出。
