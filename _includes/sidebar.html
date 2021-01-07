@@ -35,6 +35,16 @@
 	  	<a class="nav-item" href="/">桐姐小屋</a>
 	  </li-->
 	    {% for category in site.categories %}
+
+		{% if category.first == "sunlaoshi" %}
+		<li>
+			<a class="nav-item" href="/sunlaoshi">
+				<span style="font-size:16px" class="name">悟空讲堂</span>
+				<span class="badge">{{ category | last | size }}</span>
+			</a>
+		</li>
+		{% endif %}
+
 	      {% if category.first == "tongjie" %}
 	        <li>
 	            <a class="nav-item" href="/tongjie">
