@@ -19,7 +19,7 @@
 	  </li>
 	  {% assign pages_list = site.pages %}
 	  {% assign posts_list = site.posts %}
-	  {% for node in posts_list %}
+	  {% for node in pages_list %}
 	    {% if node.title != null %}
 	      {% if node.layout == "page" %}
 	        <li>
@@ -37,15 +37,15 @@
   	<ul class="nav">
 	  <li class="nav-title">生活日常</li>
 	    {% for category in site.categories %}
-	      {% for post in category %}
+	      {% if category.first == "tongjie" %}
 	        <li>
 	            <a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}">
 			<span class="name">{{ category | first }}</span>
 			<span class="badge">{{ category | last | size }}</span>
 	    	    </a>
  		</li>
-	      {% endfor %}
-	    {% endfor %}
+	      {% endif %}
+	  {% endfor %}
 	  </nav>
 	</ul>
 </div>
