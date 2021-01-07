@@ -26,7 +26,7 @@ pipeline输入日志中错误日志显示的位置异常，早于产生错误的
 ```
 2. 使用环境变量 BUF_X_=Y  ，其中 X = 0 (stdin), 1 (stdout), 2 (stderr)， Y = 0 (unbuffered), 1 (line buffered), >1 buffered + size。 
      
-     > 例如： tail -f access.log | BUF_1_=1 cut -d' ' -f1 | uniq
+     > 例如： tail -f access.log \| BUF_1_=1 cut -d\' \' -f1 | uniq
      
      该方法经测试无效。
      
@@ -45,7 +45,7 @@ stderr默认缓冲就是无缓冲。而stdout的缓冲类型与输出介质有�
 
 > 例子
 >   
->   tail -f access.log | cut -d' ' -f1 | uniq   
+>   tail -f access.log \| cut -d\' \' -f1 \| uniq   
 
 发现没有任何输出。
 
