@@ -8,7 +8,7 @@
     <ul class="post-list">
       {%- for category in site.categories -%}
         {% if category.first == "tongjie" %}
-          {% for post in category %}
+          {% for post in category[1] %}
             <li class="post-list-item">
               <!-- {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%} -->
               {%- assign date_format = "%Y/%m/%d" -%}
