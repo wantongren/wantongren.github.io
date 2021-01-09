@@ -20,7 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-09-k8s orphan pod问题及解决方案.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2020-01-09-k8s orphan pod问题及解决方案.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/tongjie/2020-01-02-wan.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/tongjie/2020-01-02-wan.markdown" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +48,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/img/tongjie" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/_posts/work/resource" />
     </key>
