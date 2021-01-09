@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-02-stdiobuffer.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2020-01-02-stdiobuffer.markdown" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_posts/work/2020-01-09-k8s orphan pod问题及解决方案.markdown" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_posts/work/2020-01-09-sentry初识.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-02-welcome-to-jekyll.markdown" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +45,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/_layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/_posts/work" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -51,6 +54,7 @@
       <recent name="$PROJECT_DIR$/_posts/work/resource" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/_posts/work" />
       <recent name="$PROJECT_DIR$/_layouts" />
       <recent name="$PROJECT_DIR$/_includes" />
       <recent name="$PROJECT_DIR$" />
