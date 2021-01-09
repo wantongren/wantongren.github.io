@@ -17,8 +17,8 @@ category: tongjie
 </div>
 
 &emsp;&emsp;吃饱喝足，桐姐开启了满村追鸡撵狗的模式，为受到惊吓的村里的鸡鸡狗狗猫猫们送上诚挚的歉意。<br>
-<center>
+
 
 ![Alt_text](/public/img/tongjie/桐姐回老家1.jpeg)
-![Alt_text](/public/img/tongjie/桐姐回老家2.jpeg)
-</center>
+![Alt_text](/public/img/tongjie/桐姐回老家2.jpeg#center)
+
