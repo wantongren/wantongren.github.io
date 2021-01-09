@@ -12,10 +12,8 @@ k8s集群中node节点日志`（/var/log/message）`输出大量错误日志：
 
 
 ## 原因分析
-![Alt_text](/public/img/work/sentry.png)
-
-Pod 异常退出，导致数据卷挂载点在卸载过程中没有清理干净，最终导致Pod沦为僵尸Pod。Kubelet的GC流程对数据卷垃圾回收实现并不完善，目前需要手动或脚本自动化实现垃圾挂载点的清理工作。
-该节点上的pod（该pod挂载了volume）被delete后，相应的pod路径没有清理，导致kubelet认为该pod还存在，实际pod已经没有了。
+&emsp;&emsp;Pod 异常退出，导致数据卷挂载点在卸载过程中没有清理干净，最终导致Pod沦为僵尸Pod。Kubelet的GC流程对数据卷垃圾回收实现并不完善，目前需要手动或脚本自动化实现垃圾挂载点的清理工作。
+&emsp;&emsp;该节点上的pod（该pod挂载了volume）被delete后，相应的pod路径没有清理，导致kubelet认为该pod还存在，实际pod已经没有了。
 
 ## 解决方案
 * **方法1**：
