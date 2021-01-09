@@ -53,8 +53,8 @@ stderr默认缓冲就是无缓冲。而stdout的缓冲类型与输出介质有�
 方案:
 知道原因后，其实也就是告诉程序我不要缓冲,实时给我写就好。linux提供了stdbuf命令。
 ```
-stdbuf -oL command
-tail -f ~/access.log | stdbuf -oL cut -d' ' -f1 | uniq
+    stdbuf -oL command
+    tail -f ~/access.log | stdbuf -oL cut -d' ' -f1 | uniq
 ```
 其中的参数，o表示输出流，L表示行缓冲。 这样主要遇到换行符，就会将缓冲输出到指定对象。而不会等到缓冲区完全写满后，才让下游读取。
 
