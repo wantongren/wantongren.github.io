@@ -7,7 +7,7 @@ categories: [work2021, stdio, k8s]
 ## 问题背景
 pipeline输入日志中错误日志显示的位置异常，早于产生错误的命令调用，如下图：
 
-![Alt text](/public/img/work/日志乱序.png)
+![Alt text](/public/img/work/日志乱序.png){:height="50%" width="50%"}
 
 我们发现2处的命令错误输出在1处显示，这个顺序是错乱的。
 
