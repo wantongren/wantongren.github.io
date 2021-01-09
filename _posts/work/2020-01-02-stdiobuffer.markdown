@@ -5,21 +5,19 @@ date: 2021-01-07 21:20:23 +0900
 categories: [work2021, stdio, k8s]
 ---
 ## 问题背景
----
 pipeline输入日志中错误日志显示的位置异常，早于产生错误的命令调用，如下图：
 
-![Alt text](/_posts/work/resource/日志乱序.png)
+![Alt text](/public/img/work/日志乱序.png)
 
 我们发现2处的命令错误输出在1处显示，这个顺序是错乱的。
 
 ## 问题原因
----
 这里的日志是从标准输出( stdout )和标准错误( stderr )中收集的，当这两类日志重定向到文件时，默认stdout是全缓存模式（缓存大小为4k，页大小）， 默认stderr是无缓存的，这就导致了日志收集时错误日志会先于某些标准输出日志先被收集。
 
 ## 解决方案
 ---
 1. stdbuf 命令， 将标准输出模式改为行缓存。
-```ruby
+```
       function tmpf() { echo aaa; }
       export -f tmpf
       stdbuf -o 0 bash -c 'tmpf'
