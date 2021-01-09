@@ -6,9 +6,9 @@ categories: [work2021, k8s]
 ---
 ## 问题描述
 k8s集群中node节点日志`（/var/log/message）`输出大量错误日志：
->>>
+>
 >orphaned pod "002d97dc-e398-4e34-b510-38f52354ad29" found, but volume paths are still present on disk : There were a total of 2044 errors similar to this. Turn up verbosity to see them.
->>>
+>
 
 
 ## 原因分析
@@ -115,7 +115,7 @@ Pod 异常退出，导致数据卷挂载点在卸载过程中没有清理干净�
 ````
 
 ## 资料总结
-&emsp;&emsp;&emsp;&emsp;When a Pod which has used PVC is deleted from kubuernetes cluster we can get a error message repeatedly(Orphaned pod "1f415e-...-4b38"found, but volume paths are still present on disk) from kubelet log.
+&emsp;&emsp;When a Pod which has used PVC is deleted from kubuernetes cluster we can get a error message repeatedly(Orphaned pod "1f415e-...-4b38"found, but volume paths are still present on disk) from kubelet log.
 this error message is caused by kubelet because it cannot clean the parent path of targetPath when Pod is deleted from cluster
 (targetPath like: /var/lib/kubelet/pods/9cda187a-7fb3-11ea-80b3-246e968d4b38/volumes/kubernetes.io-csi/pvc-9ae9405c-7fb3-11ea-80b3-246e968d4b38/mount). If I remove the parent path of targetPath(/var/lib/kubelet/pods/9cda187a-7fb3-11ea-80b3-246e968d4b38/volumes/kubernetes.io~csi/pvc-9ae9405c-7fb3-11ea-80b3-246e968d4b38), kubelet stop output this error message. CSI plugin(like: ChubaoFS CSI) can remove the parent path of targetPath in NodeUnpublishVolume method.
 I think that it is a better solution that fix this issue in kubelet. And other CSI Plugin can aviod this issue first using this solution before fixed kubelet.
