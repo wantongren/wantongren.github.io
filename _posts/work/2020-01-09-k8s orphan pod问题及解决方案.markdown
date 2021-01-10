@@ -1,7 +1,7 @@
 ---
 layout: post
 title: k8s orphan pod问题及解决方案
-date: 2020-01-09 14:20:23 +0900
+date: 2021-01-09 14:20:23 +0900
 categories: [work2021, k8s] 
 ---
 ## 问题描述

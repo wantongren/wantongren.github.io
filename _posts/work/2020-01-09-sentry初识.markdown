@@ -1,7 +1,7 @@
 ---
 layout: post
 title: sentry初识
-date: 2020-01-04 19:20:23 +0900
+date: 2021-01-04 19:20:23 +0900
 category: work2021 
 ---
 ## 什么是sentry
