@@ -5,7 +5,7 @@ date: 2021-01-13 16:21:00 +0900
 category: tongjie 
 ---
 
-<div align="center"><img src="/public/img/tongjie/20210113.jpeg"/></div>
+<div align="center"><img  width="500" height="800" src="/public/img/tongjie/20210113.jpeg"/></div>
 
 工作中的爸爸看到了小姨发来的照片，莫名的眼眶湿润了，爸爸满心的欣喜、满足、感恩，谢谢我的小天使。
 <br>同时，又瞬间想到了很多的画面：你未来离家求学、婚礼现场......  满心又被不舍与矛盾充满
