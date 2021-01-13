@@ -20,7 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/_posts/tongjie/2021-01-13-心化了.markdown" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/tongjie/2020-01-02-桐姐进村啦.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/tongjie/2021-01-02-桐姐进村啦.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-02-stdiobuffer.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-01-02-stdiobuffer.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-09-k8s orphan pod问题及解决方案.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-01-09-k8s orphan pod问题及解决方案.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-09-sentry初识.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-01-09-sentry初识.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/work/2020-01-10-http状态码归类分析.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-01-10-http状态码归类分析.markdown" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,20 +48,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/_posts/work" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/_posts/tongjie" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/img/tongjie" />
-      <recent name="$PROJECT_DIR$/public/img" />
-      <recent name="$PROJECT_DIR$/_posts/work/resource" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/_posts/tongjie" />
       <recent name="$PROJECT_DIR$/_posts/work" />
       <recent name="$PROJECT_DIR$/_layouts" />
       <recent name="$PROJECT_DIR$/_includes" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/img/tongjie" />
+      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/_posts/work/resource" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -72,6 +79,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2581" y="359" key="SettingsEditor" timestamp="1610014287800">
