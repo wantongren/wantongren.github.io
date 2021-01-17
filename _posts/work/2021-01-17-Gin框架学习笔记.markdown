@@ -280,12 +280,368 @@ func main() {
 Gin提供两类绑定方法集：<br>
 **Type - Must bind**
      * **Methods** - Bind, BindJSON, BindXML, BindQuery, BindYAML, BindHeader
-     * **Behavior** - These methods use MustBindWith under the hood. If there is a binding error, the request is aborted with c.AbortWithError(400, err).SetType(ErrorTypeBind). This sets the response status code to 400 and the Content-Type header is set to text/plain; charset=utf-8. Note that if you try to set the response code after this, it will result in a warning [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 422. If you wish to have greater control over the behavior, consider using the ShouldBind equivalent method.
-
-**Type - Should bind**
+     * **Behavior** - These methods use MustBindWith under the hood. If there is a binding error, the request is aborted with c.AbortWithError(400, err).SetType(ErrorTypeBind). This sets the response status code to 400 and the Content-Type header is set to text/plain; charset=utf-8. Note that if you try to set the response code after this, it will result in a warning [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 422. If you wish to have greater control over the behavior, consider using the ShouldBind equivalent method.<br>
+ **Type - Should bind**
      * **Methods** - ShouldBind, ShouldBindJSON, ShouldBindXML, ShouldBindQuery, ShouldBindYAML
      * **Behavior** - These methods use ShouldBindWith under the hood. If there is a binding error, the error is returned and it is the developer's responsibility to handle the request and error appropriately.
 
+使用绑定方法时，Gin会尝试依据Content-Type头信息来推断绑定结构，如果你确定绑定的结构，可以使用`MustBindWith`或者`ShouldBindWith`。
+Gin也支持通过设置`binding:"required"`指定域为必须，设置后，如果为空则报错。
+13. 自定义验证器
+    ```
+    package main
+    
+    import (
+    	"net/http"
+    	"time"
+    
+    	"github.com/gin-gonic/gin"
+    	"github.com/gin-gonic/gin/binding"
+    	"github.com/go-playground/validator/v10"
+    )
+    
+    // Booking contains binded and validated data.
+    type Booking struct {
+    	CheckIn  time.Time `form:"check_in" binding:"required,bookabledate" time_format:"2006-01-02"`
+    	CheckOut time.Time `form:"check_out" binding:"required,gtfield=CheckIn" time_format:"2006-01-02"`
+    }
+    
+    var bookableDate validator.Func = func(fl validator.FieldLevel) bool {
+    	date, ok := fl.Field().Interface().(time.Time)
+    	if ok {
+    		today := time.Now()
+    		if today.After(date) {
+    			return false
+    		}
+    	}
+    	return true
+    }
+    
+    func main() {
+    	route := gin.Default()
+    
+    	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+    		v.RegisterValidation("bookabledate", bookableDate)
+    	}
+    
+    	route.GET("/bookable", getBookable)
+    	route.Run(":8085")
+    }
+    
+    func getBookable(c *gin.Context) {
+    	var b Booking
+    	if err := c.ShouldBindWith(&b, binding.Query); err == nil {
+    		c.JSON(http.StatusOK, gin.H{"message": "Booking dates are valid!"})
+    	} else {
+    		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+    	}
+    }
+    ```
+14. 只绑定查询字符串
+`ShouldBindQuery`函数只会绑定查询参数，不绑定post数据。
+15. 绑定查询字符串和post数据
+`ShouldBind`函数可以完成上述功能。
+16. 绑定Uri
+    ```go
+    package main
+    
+    import "github.com/gin-gonic/gin"
+    
+    type Person struct {
+    	ID string `uri:"id" binding:"required,uuid"`
+    	Name string `uri:"name" binding:"required"`
+    }
+    
+    func main() {
+    	route := gin.Default()
+    	route.GET("/:name/:id", func(c *gin.Context) {
+    		var person Person
+    		if err := c.ShouldBindUri(&person); err != nil {
+    			c.JSON(400, gin.H{"msg": err})
+    			return
+    		}
+    		c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
+    	})
+    	route.Run(":8088")
+    }
+    ```
+17. 绑定Header
+    ```go
+    package main
+    
+    import (
+    	"fmt"
+    	"github.com/gin-gonic/gin"
+    )
+    
+    type testHeader struct {
+    	Rate   int    `header:"Rate"`
+    	Domain string `header:"Domain"`
+    }
+    
+    func main() {
+    	r := gin.Default()
+    	r.GET("/", func(c *gin.Context) {
+    		h := testHeader{}
+    
+    		if err := c.ShouldBindHeader(&h); err != nil {
+    			c.JSON(200, err)
+    		}
+    
+    		fmt.Printf("%#v\n", h)
+    		c.JSON(200, gin.H{"Rate": h.Rate, "Domain": h.Domain})
+    	})
+    
+    	r.Run()
+    
+    // client
+    // curl -H "rate:300" -H "domain:music" 127.0.0.1:8080/
+    // output
+    // {"Domain":"music","Rate":300}
+    }
+    ```
+18. 绑定HTML checkboxes
+    ```go
+    type myForm struct {
+        Colors []string `form:"colors[]"`
+    }
+    
+    ...
+    
+    func formHandler(c *gin.Context) {
+        var fakeForm myForm
+        c.ShouldBind(&fakeForm)
+        c.JSON(200, gin.H{"color": fakeForm.Colors})
+    }
+    ```
+    form.html
+    ```html
+    <form action="/" method="POST">
+        <p>Check some colors</p>
+        <label for="red">Red</label>
+        <input type="checkbox" name="colors[]" value="red" id="red">
+        <label for="green">Green</label>
+        <input type="checkbox" name="colors[]" value="green" id="green">
+        <label for="blue">Blue</label>
+        <input type="checkbox" name="colors[]" value="blue" id="blue">
+        <input type="submit">
+    </form>
+    ```
+    result:
+    ```
+    {"color":["red","green","blue"]}
+    ```
+19. Multipart/Urlencoded binding
+    ```go
+    type ProfileForm struct {
+    	Name   string                `form:"name" binding:"required"`
+    	Avatar *multipart.FileHeader `form:"avatar" binding:"required"`
+    
+    	// or for multiple files
+    	// Avatars []*multipart.FileHeader `form:"avatar" binding:"required"`
+    }
+    
+    func main() {
+    	router := gin.Default()
+    	router.POST("/profile", func(c *gin.Context) {
+    		// you can bind multipart form with explicit binding declaration:
+    		// c.ShouldBindWith(&form, binding.Form)
+    		// or you can simply use autobinding with ShouldBind method:
+    		var form ProfileForm
+    		// in this case proper binding will be automatically selected
+    		if err := c.ShouldBind(&form); err != nil {
+    			c.String(http.StatusBadRequest, "bad request")
+    			return
+    		}
+    
+    		err := c.SaveUploadedFile(form.Avatar, form.Avatar.Filename)
+    		if err != nil {
+    			c.String(http.StatusInternalServerError, "unknown error")
+    			return
+    		}
+    
+    		// db.Save(&form)
+    
+    		c.String(http.StatusOK, "ok")
+    	})
+    	router.Run(":8080")
+    }
+    ```
+    Test it with:
+    ```
+    $ curl -X POST -v --form name=user --form "avatar=@./avatar.png" http://localhost:8080/profile
+    ```
+20. XML, JSON, YAML and ProtoBuf 渲染
+    ```go
+    func main() {
+    	r := gin.Default()
+    
+    	// gin.H is a shortcut for map[string]interface{}
+    	r.GET("/someJSON", func(c *gin.Context) {
+    		c.JSON(http.StatusOK, gin.H{"message": "hey", "status": http.StatusOK})
+    	})
+    
+    	r.GET("/moreJSON", func(c *gin.Context) {
+    		// You also can use a struct
+    		var msg struct {
+    			Name    string `json:"user"`
+    			Message string
+    			Number  int
+    		}
+    		msg.Name = "Lena"
+    		msg.Message = "hey"
+    		msg.Number = 123
+    		// Note that msg.Name becomes "user" in the JSON
+    		// Will output  :   {"user": "Lena", "Message": "hey", "Number": 123}
+    		c.JSON(http.StatusOK, msg)
+    	})
+    
+    	r.GET("/someXML", func(c *gin.Context) {
+    		c.XML(http.StatusOK, gin.H{"message": "hey", "status": http.StatusOK})
+    	})
+    
+    	r.GET("/someYAML", func(c *gin.Context) {
+    		c.YAML(http.StatusOK, gin.H{"message": "hey", "status": http.StatusOK})
+    	})
+    
+    	r.GET("/someProtoBuf", func(c *gin.Context) {
+    		reps := []int64{int64(1), int64(2)}
+    		label := "test"
+    		// The specific definition of protobuf is written in the testdata/protoexample file.
+    		data := &protoexample.Test{
+    			Label: &label,
+    			Reps:  reps,
+    		}
+    		// Note that data becomes binary data in the response
+    		// Will output protoexample.Test protobuf serialized data
+    		c.ProtoBuf(http.StatusOK, data)
+    	})
+    
+    	// Listen and serve on 0.0.0.0:8080
+    	r.Run(":8080")
+    }
+    ```
+21. SecureJSON
+该函数防止json劫持，默认会在json结构体前插入`while(1)`
+    ```go
+    func main() {
+    	r := gin.Default()
+    
+    	// You can also use your own secure json prefix
+    	// r.SecureJsonPrefix(")]}',\n")
+    
+    	r.GET("/someJSON", func(c *gin.Context) {
+    		names := []string{"lena", "austin", "foo"}
+    
+    		// Will output  :   while(1);["lena","austin","foo"]
+    		c.SecureJSON(http.StatusOK, names)
+    	})
+    
+    	// Listen and serve on 0.0.0.0:8080
+    	r.Run(":8080")
+    }
+    ```
+22. JSONP
+使用JSONP从不同域的服务请求数据，如果请求参数中有callback参数，那么该callback参数会被加入到响应中。
+    ```go
+    func main() {
+    	r := gin.Default()
+    
+    	r.GET("/JSONP", func(c *gin.Context) {
+    		data := gin.H{
+    			"foo": "bar",
+    		}
+    		
+    		//callback is x
+    		// Will output  :   x({\"foo\":\"bar\"})
+    		c.JSONP(http.StatusOK, data)
+    	})
+    
+    	// Listen and serve on 0.0.0.0:8080
+    	r.Run(":8080")
+    
+            // client
+            // curl http://127.0.0.1:8080/JSONP?callback=x
+    }
+    ```
+23. AsciiJSON
+该函数会将非ascii码转换成ascii码。
+24. PureJSON
+通常JSON会用unicode码替换某些html字符，比如 `<`被换成`\u003c`。如果你想按照字面量来编码，就用该函数。
+    ```go
+    func main() {
+    	r := gin.Default()
+    	
+    	// Serves unicode entities
+    	r.GET("/json", func(c *gin.Context) {
+    		c.JSON(200, gin.H{
+    			"html": "<b>Hello, world!</b>",
+    		})
+    	})
+    	
+    	// Serves literal characters
+    	r.GET("/purejson", func(c *gin.Context) {
+    		c.PureJSON(200, gin.H{
+    			"html": "<b>Hello, world!</b>",
+    		})
+    	})
+    	
+    	// listen and serve on 0.0.0.0:8080
+    	r.Run(":8080")
+    }
+    ```
+25. 提供静态文件服务
+    ```go
+    func main() {
+    	router := gin.Default()
+    	router.Static("/assets", "./assets")
+    	router.StaticFS("/more_static", http.Dir("my_file_system"))
+    	router.StaticFile("/favicon.ico", "./resources/favicon.ico")
+    
+    	// Listen and serve on 0.0.0.0:8080
+    	router.Run(":8080")
+    }
+    ```    
+26. Serving data from file
+    ```go
+    func main() {
+    	router := gin.Default()
+    
+    	router.GET("/local/file", func(c *gin.Context) {
+    		c.File("local/file.go")
+    	})
+    
+    	var fs http.FileSystem = // ...
+    	router.GET("/fs/file", func(c *gin.Context) {
+    		c.FileFromFS("fs/file.go", fs)
+    	})
+    }
+    ``` 
+27. Serving data from reader
+    ```go
+    func main() {
+    	router := gin.Default()
+    	router.GET("/someDataFromReader", func(c *gin.Context) {
+    		response, err := http.Get("https://raw.githubusercontent.com/gin-gonic/logo/master/color.png")
+    		if err != nil || response.StatusCode != http.StatusOK {
+    			c.Status(http.StatusServiceUnavailable)
+    			return
+    		}
+    
+    		reader := response.Body
+     		defer reader.Close()
+    		contentLength := response.ContentLength
+    		contentType := response.Header.Get("Content-Type")
+    
+    		extraHeaders := map[string]string{
+    			"Content-Disposition": `attachment; filename="gopher.png"`,
+    		}
+    
+    		c.DataFromReader(http.StatusOK, contentLength, contentType, reader, extraHeaders)
+    	})
+    	router.Run(":8080")
+    }
+    ``` 
 <br>
 * ****
 
