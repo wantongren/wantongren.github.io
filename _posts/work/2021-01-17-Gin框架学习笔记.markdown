@@ -1,0 +1,290 @@
+---
+layout: post
+title: Gin框架学习笔记 
+date: 2021-01-17 10:50:00 +0900
+category: work2021 
+---
+## 框架介绍
+Gin 是一个 go 写的 web 框架，具有高性能的优点。官方地址：https://github.com/gin-gonic/gin
+
+## 框架要点
+根据官方文档进行整理。
+<br>
+* **支持的http方法**
+
+
+```go
+    func main() {
+	// Creates a gin router with default middleware:
+	// logger and recovery (crash-free) middleware
+	router := gin.Default()
+
+	router.GET("/someGet", getting)
+	router.POST("/somePost", posting)
+	router.PUT("/somePut", putting)
+	router.DELETE("/someDelete", deleting)
+	router.PATCH("/somePatch", patching)
+	router.HEAD("/someHead", head)
+	router.OPTIONS("/someOptions", options)
+
+	// By default it serves on :8080 unless a
+	// PORT environment variable was defined.
+	router.Run()
+	// router.Run(":3000") for a hard coded port
+    }
+```
+GET   : 从服务器端获取数据，请求body在地址栏上,用于获取资源，是幂等的，无副作用；<br>
+POST  : 向服务器端提交数据，请求数据在报文body里，发送一个修改数据的请求，需求数据要从新创建，用于创建，更新，删除资源，查询资源都可以，是不幂等的；<br>
+PUT   : 向服务器端提交数据，请求数据在报文body里，发送一个修改数据的请求，需求数据更新（全部更新），用于添加/更新资源；<br> 
+PATCH : 向服务器端提交数据，请求数据在报文body里，发送一个修改数据的请求，需求数据更新（部分更新），用于更新资源，且是局部更新，比如：user对象，你只更改了name属性，那么他的其他属性值是不会变的，如果你用post，那么其他属性值会被设置为null（全局更新）<br> 
+DELETE: 向服务器端提交数据，请求数据在报文body里，发送一个删除数据的请求，用于删除资源<br>
+HEAD  : 和GET方法一致，除了服务器不能在响应里返回消息主体。<br>
+OPTION: 表明请求想得到请求/响应链上关于此请求里的URI（Request-URI）指定资源的通信选项信息。<br>
+<br>
+* **基本用法**
+
+```go
+func main() {
+	router := gin.Default()
+
+    //用法1
+	// This handler will match /user/john but will not match /user/ or /user
+	router.GET("/user/:name", func(c *gin.Context) {
+		name := c.Param("name")
+		c.String(http.StatusOK, "Hello %s", name)
+	})
+
+	// However, this one will match /user/john/ and also /user/john/send
+	// If no other routers match /user/john, it will redirect to /user/john/
+	router.GET("/user/:name/*action", func(c *gin.Context) {
+		name := c.Param("name")
+		action := c.Param("action")
+		message := name + " is " + action
+		c.String(http.StatusOK, message)
+	})
+
+	// For each matched request Context will hold the route definition
+	router.POST("/user/:name/*action", func(c *gin.Context) {
+		c.FullPath() == "/user/:name/*action" // true
+	})
+
+    //用法2
+    // Query string parameters are parsed using the existing underlying request object.
+	// The request responds to a url matching:  /welcome?firstname=Jane&lastname=Doe
+	router.GET("/welcome", func(c *gin.Context) {
+		firstname := c.DefaultQuery("firstname", "Guest")
+		lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
+
+		c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
+	})
+
+    //用法3  Multipart/Urlencoded Form
+    router.POST("/form_post", func(c *gin.Context) {
+    		message := c.PostForm("message")
+    		nick := c.DefaultPostForm("nick", "anonymous")
+    
+    		c.JSON(200, gin.H{
+    			"status":  "posted",
+    			"message": message,
+    			"nick":    nick,
+    		})
+    	})
+   
+    //用法4
+    router.POST("/post", func(c *gin.Context) {
+    
+    		ids := c.QueryMap("ids")
+    		names := c.PostFormMap("names")
+    
+    		fmt.Printf("ids: %v; names: %v", ids, names)
+    	})
+
+    //用法5   
+    //Set a lower memory limit for multipart forms (default is 32 MiB)
+	router.MaxMultipartMemory = 8 << 20  // 8 MiB
+	router.POST("/upload", func(c *gin.Context) {
+		// single file
+		file, _ := c.FormFile("file")
+		log.Println(file.Filename)
+
+		// Upload the file to specific dst.
+		c.SaveUploadedFile(file, dst)
+
+		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
+	})
+	
+    //用法6
+    // Set a lower memory limit for multipart forms (default is 32 MiB)
+	router.MaxMultipartMemory = 8 << 20  // 8 MiB
+	router.POST("/upload", func(c *gin.Context) {
+		// Multipart form
+		form, _ := c.MultipartForm()
+		files := form.File["upload[]"]
+
+		for _, file := range files {
+			log.Println(file.Filename)
+
+			// Upload the file to specific dst.
+			c.SaveUploadedFile(file, dst)
+		}
+		c.String(http.StatusOK, fmt.Sprintf("%d files uploaded!", len(files)))
+	})
+
+    // 用法7
+    // Simple group: v1
+	v1 := router.Group("/v1")
+	{
+		v1.POST("/login", loginEndpoint)
+		v1.POST("/submit", submitEndpoint)
+		v1.POST("/read", readEndpoint)
+	}
+	// Simple group: v2
+	v2 := router.Group("/v2")
+	{
+		v2.POST("/login", loginEndpoint)
+		v2.POST("/submit", submitEndpoint)
+		v2.POST("/read", readEndpoint)
+	}
+
+
+
+
+	router.Run(":8080")
+}
+```
+1. 获取路径里的参数： c.Param(key)
+2. 获取查询参数：    c.Query(key)     c.DefaultQuery(key,defaultValue)
+3. 获取表单数据：    c.PostForm(key)  c.DefaultPostForm(key,defaultValue)
+4. Map作为查询参数和表单参数：  c.QueryMap(key)   c.PostFormMap(key)
+```
+    POST /post?ids[a]=1234&ids[b]=hello HTTP/1.1
+    Content-Type: application/x-www-form-urlencoded
+
+    names[first]=thinkerou&names[second]=tianou
+
+    //返回值
+    ids: map[b:hello a:1234]; names: map[second:tianou first:thinkerou]
+```
+5.上传文件
+```
+curl -X POST http://localhost:8080/upload \
+  -F "file=@/Users/appleboy/test.zip" \
+  -H "Content-Type: multipart/form-data"
+```
+6. 上传多个文件
+```
+curl -X POST http://localhost:8080/upload \
+  -F "upload[]=@/Users/appleboy/test1.zip" \
+  -F "upload[]=@/Users/appleboy/test2.zip" \
+  -H "Content-Type: multipart/form-data"
+```
+7. 分组路由
+8. r.gin.New()和r.gin.Default()区别：
+> r := gin.New() : 没有使用任何中间件
+>
+> r := gin.Default(): 绑定了Logger和Recovery中间件
+
+```go
+func main() {
+	// Creates a router without any middleware by default
+	r := gin.New()
+
+	// Global middleware
+	// Logger middleware will write the logs to gin.DefaultWriter even if you set with GIN_MODE=release.
+	// By default gin.DefaultWriter = os.Stdout
+	r.Use(gin.Logger())
+
+	// Recovery middleware recovers from any panics and writes a 500 if there was one.
+	r.Use(gin.Recovery())
+
+	// Per route middleware, you can add as many as you desire.
+	r.GET("/benchmark", MyBenchLogger(), benchEndpoint)
+
+	// Authorization group
+	// authorized := r.Group("/", AuthRequired())
+	// exactly the same as:
+	authorized := r.Group("/")
+	// per group middleware! in this case we use the custom created
+	// AuthRequired() middleware just in the "authorized" group.
+	authorized.Use(AuthRequired())
+	{
+		authorized.POST("/login", loginEndpoint)
+		authorized.POST("/submit", submitEndpoint)
+		authorized.POST("/read", readEndpoint)
+
+		// nested group
+		testing := authorized.Group("testing")
+		testing.GET("/analytics", analyticsEndpoint)
+	}
+
+	// Listen and serve on 0.0.0.0:8080
+	r.Run(":8080")
+}
+```
+
+9. 写日志文件
+```go
+func main() {
+    // Disable Console Color, you don't need console color when writing the logs to file.
+    gin.DisableConsoleColor()
+
+    // Logging to a file.
+    f, _ := os.Create("gin.log")
+    gin.DefaultWriter = io.MultiWriter(f)
+
+    // Use the following code if you need to write the logs to file and console at the same time.
+    // gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+
+    router := gin.Default()
+    router.GET("/ping", func(c *gin.Context) {
+        c.String(200, "pong")
+    })
+
+    router.Run(":8080")
+}
+```
+10. 自定义日志格式
+```go
+func main() {
+	router := gin.New()
+
+	// LoggerWithFormatter middleware will write the logs to gin.DefaultWriter
+	// By default gin.DefaultWriter = os.Stdout
+	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+
+		// your custom format
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
+				param.ClientIP,
+				param.TimeStamp.Format(time.RFC1123),
+				param.Method,
+				param.Path,
+				param.Request.Proto,
+				param.StatusCode,
+				param.Latency,
+				param.Request.UserAgent(),
+				param.ErrorMessage,
+		)
+	}))
+	router.Use(gin.Recovery())
+
+	router.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
+
+	router.Run(":8080")
+}
+```
+11. 控制输出日志的颜色
+默认情况下，输出的日志颜色是依赖于终端TTY的，可以通过gin.DisableConsoleColor()关闭颜色，或者通过gin.ForceConsoleColor()开启。
+
+<br>
+* ****
+
+
+
+
+
+
+
+
+

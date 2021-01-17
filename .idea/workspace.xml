@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/_posts/work/2021-01-17-Gin框架学习笔记.markdown" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,21 +43,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/_posts/tongjie" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/_posts/work" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/_posts/tongjie" />
-      <recent name="$PROJECT_DIR$/_posts/work" />
-      <recent name="$PROJECT_DIR$/_layouts" />
-      <recent name="$PROJECT_DIR$/_includes" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/img/tongjie" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/_posts/work/resource" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/_posts/work" />
+      <recent name="$PROJECT_DIR$/_posts/tongjie" />
+      <recent name="$PROJECT_DIR$/_layouts" />
+      <recent name="$PROJECT_DIR$/_includes" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -81,9 +82,9 @@
     </state>
     <state x="2581" y="359" key="SettingsEditor/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1610014287800" />
     <state x="2581" y="359" key="SettingsEditor/0.23.1792.1097/1792.0.2560.1440@1792.0.2560.1440" timestamp="1610014046418" />
-    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1610273949318">
+    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1610852378468">
       <screen x="1792" y="0" width="2560" height="1440" />
     </state>
-    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1610273949318" />
+    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1610852378468" />
   </component>
 </project>
