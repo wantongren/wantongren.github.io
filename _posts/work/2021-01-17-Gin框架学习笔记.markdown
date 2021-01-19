@@ -278,13 +278,13 @@ func main() {
 12. 模型绑定和验证
 支持JSON,XML,YAML和标准表单格式（foo=bar&boo-baz），使用模型绑定需要在所有的域上设置标签，比如，绑定JSON格式的设置为 `json:"fieldname"`
 Gin提供两类绑定方法集：<br>
-**Type - Must bind**
+   **Type - Must bind**
      * **Methods** - Bind, BindJSON, BindXML, BindQuery, BindYAML, BindHeader
-     * **Behavior** - These methods use MustBindWith under the hood. If there is a binding error, the request is aborted with c.AbortWithError(400, err).SetType(ErrorTypeBind). This sets the response status code to 400 and the Content-Type header is set to text/plain; charset=utf-8. Note that if you try to set the response code after this, it will result in a warning [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 422. If you wish to have greater control over the behavior, consider using the ShouldBind equivalent method.<br>
- **Type - Should bind**
+     * **Behavior** - These methods use MustBindWith under the hood. If there is a binding error, the request is aborted with c.AbortWithError(400, err).SetType(ErrorTypeBind). This sets the response status code to 400 and the Content-Type header is set to text/plain; charset=utf-8. Note that if you try to set the response code after this, it will result in a warning `[GIN-debug] WARNING Headers were already written.` Wanted to override status code 400 with 422. If you wish to have greater control over the behavior, consider using the ShouldBind equivalent method.<br>
+
+    **Type - Should bind**
      * **Methods** - ShouldBind, ShouldBindJSON, ShouldBindXML, ShouldBindQuery, ShouldBindYAML
      * **Behavior** - These methods use ShouldBindWith under the hood. If there is a binding error, the error is returned and it is the developer's responsibility to handle the request and error appropriately.
-
 使用绑定方法时，Gin会尝试依据Content-Type头信息来推断绑定结构，如果你确定绑定的结构，可以使用`MustBindWith`或者`ShouldBindWith`。
 Gin也支持通过设置`binding:"required"`指定域为必须，设置后，如果为空则报错。
 13. 自定义验证器
