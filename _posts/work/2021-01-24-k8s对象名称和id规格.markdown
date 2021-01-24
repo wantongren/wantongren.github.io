@@ -1,5 +1,5 @@
 ---
-layout: pos
+layout: post
 title: k8s对象和id规格
 date: 2021-01-24 14:57:00 +0900
 categories: [work2021, kubernetes] 
