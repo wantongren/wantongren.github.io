@@ -1,0 +1,45 @@
+---
+layout: pos
+title: k8s对象和id规格
+date: 2021-01-24 14:57:00 +0900
+categories: [work2021, kubernetes] 
+---
+
+k8s集群中的每个对象都有一个唯一的名称和UID，也就是metadata中的NAME和UID.
+
+## 名称
+任何时刻某种类型的资源实例都有一个名称，如果该实例被删除，名称可以复用。
+
+下面是三种类型名称定义：
+
+### DNS子域名 ( DNS Subdomain Names )
+
+规则如下：
+* 长度不超过253字符；
+* 只能包含小写字母数字、'-'、'.'
+* 起始字符必须为字母或数字
+* 结束字符必须为字母或数字
+
+
+### DNS标签名 ( DNS Labels Names )
+
+规则如下：
+* 长度不超过63字符；
+* 只能包含小写字母数字、'-'
+* 起始字符必须为字母或数字
+* 结束字符必须为字母或数字
+
+
+### 路径分段名称 ( Path Segment Names )
+
+某些资源类型要求名称能被安全地用作路径中的片段。 换句话说，其名称不能是 "."、".."，也不可以包含 "/" 或 "%" 这些字符。
+
+## UIDs
+
+Kubernetes 系统生成的字符串，唯一标识对象。
+在 Kubernetes 集群的整个生命周期中创建的每个对象都有一个不同的 uid，它旨在区分类似实体的历史事件。
+Kubernetes UIDs 是全局唯一标识符（也叫 UUIDs）。 UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667.
+
+
+---
+## Refer: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names
