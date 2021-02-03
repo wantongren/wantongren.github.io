@@ -1,0 +1,15 @@
+---
+layout: post
+title: GORM学习记录 
+date: 2021-02-03 17:18:00 +0900
+categories: [work2021, go] 
+---
+
+本文档只用于记录学习gorm过程中高质量的资料。
+
+---
+[gorm官方中文手册](https://gorm.io/zh_CN/docs/) 
+
+[gorm如何巧妙的定义model模型](https://blog.csdn.net/raoxiaoya/article/details/109027899)
+
+
