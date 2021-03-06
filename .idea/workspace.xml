@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/_posts/work/2021-02-19-Kubernetes 优秀文章集锦.markdown" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_posts/work/2021-02-18-Kubernetes 应用性能分析工具 - Kubectl Flame.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-02-18-Kubernetes 应用性能分析工具 - Kubectl Flame.markdown" afterDir="false" />
     </list>
@@ -82,9 +83,13 @@
     </state>
     <state x="2581" y="359" key="SettingsEditor/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1611061774945" />
     <state x="2581" y="359" key="SettingsEditor/0.23.1792.1097/1792.0.2560.1440@1792.0.2560.1440" timestamp="1610014046418" />
-    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1612343976268">
+    <state x="2779" y="475" width="586" height="490" key="find.popup" timestamp="1613705613640">
       <screen x="1792" y="0" width="2560" height="1440" />
     </state>
-    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1612343976268" />
+    <state x="2779" y="475" width="586" height="490" key="find.popup/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1613705613640" />
+    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1613717227822">
+      <screen x="1792" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2737" y="331" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120/1792.0.2560.1440@1792.0.2560.1440" timestamp="1613717227822" />
   </component>
 </project>

@@ -33,7 +33,7 @@ Kubectl Flame 是一个 kubectl 插件，可以以较低的开销生成火焰图
 
 kubectl-flame 通过在与目标容器相同的节点上启动一个探查器来启动性能分析，大多数探查器将与目标容器共享一些资源：比如通过将 **hostPID** 设置为 true 来启用 PID 命名空间共享，通过挂载 **/var/lib/docker** 并查询 overlayFS 来启用文件系统共享。在后台kubectl-flame使用 async-profiler 来为 Java 应用程序生成火焰图，通过共享 **/tmp** 文件夹与目标 JVM 进行交互，Golang 则支持基于 ebpf 分析，Python 支持基于 py-spy 进行分析。
 
-![Alt_text](/public/img/work/k8s-flame.jpg){:height="50%" width="50%"}
+![Alt_text](/public/img/work/k8s-flame.jpg){:height="50%" width="50%" mode="widthFix"}
 
 #### 分析 Kubernetes Pod
 
