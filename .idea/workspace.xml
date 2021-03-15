@@ -20,9 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80444a9f-629a-451c-8b47-3792b8026fa2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/_posts/work/2021-02-19-Kubernetes 优秀文章集锦.markdown" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_posts/work/2021-03-09-张磊-深入剖析Kubernetes-阅读笔记.markdown" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/work/2021-02-18-Kubernetes 应用性能分析工具 - Kubectl Flame.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/work/2021-02-18-Kubernetes 应用性能分析工具 - Kubectl Flame.markdown" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
